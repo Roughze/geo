@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DeckGL 3D Buildings</title>
+    <meta charset="utf-8" />
+    <style>
+      body { margin: 0; }
+      #map { width: 100vw; height: 100vh; }
+    </style>
+    <script src="https://unpkg.com/deck.gl@8.9.20/dist.min.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      fetch("https://raw.githubusercontent.com/YOUR-USERNAME/YOUR-REPO/main/yourfile.json")
+        .then(r => r.json())
+        .then(data => {
+          new deck.DeckGL({
+            container: "map",
+            initialViewState: {
+              longitude: 77.5946, // change to your site
+              latitude: 12.9716,
+              zoom: 15,
+              pitch: 45,
+              bearing: 0
+            },
+            controller: true,
+            layers: [
+              new deck.GeoJsonLayer({
+                id: "buildings",
+                data: data,
+                extruded: true,
+                getElevation: 30,
+                getFillColor: [74, 80, 230, 200],
+                getLineColor: [0, 0, 0, 200],
+                lineWidthMinPixels: 1
+              })
+            ]
+          });
+        });
+    </script>
+  </body>
+</html>
